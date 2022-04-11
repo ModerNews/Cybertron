@@ -14,9 +14,9 @@ async def root():
 
 
 @app.get("/file", response_class=HTMLResponse)
-async def say_hello():
+async def say_hello(request: Request):
     # print(templates.)
-    return templates.TemplateResponse('file_upload.html', {'request': Request})
+    return templates.TemplateResponse('file_upload.html', {'request': request})
 
 
 @app.post("/uploads")
