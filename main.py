@@ -13,10 +13,9 @@ async def root():
     return {"message": "Hello World"}
 
 
-@app.get("/file")
+@app.get("/file", response_class=HTMLResponse)
 async def say_hello():
-    with open(".\\templates\\test_template.html", "r") as content:
-        return HTMLResponse(content.read())
+    tempalates.TemplateResponse('test_template.html', {'request': Request})
 
 
 @app.post("/uploads")
