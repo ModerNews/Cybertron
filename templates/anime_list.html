@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anime List</title>
+</head>
+<body>
+    <form method="get">
+        <input type="text" name="title" id="title">
+        <input type="submit">
+    </form>
+    <table>
+        <tr>
+            <th>Serie ID Number</th>
+            <th>Episode Number</th>
+            <th>Current Status</th>
+        </tr>
+        {% for item in episodes %}
+            <tr>
+                <td>{{ item[0] }}</td>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[2] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
