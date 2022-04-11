@@ -1,10 +1,11 @@
 from fastapi import FastAPI, UploadFile, Request, File
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 
 import platform
 import pymysql as mysql
+import hashlib
 
 from crud import *
 
@@ -38,9 +39,29 @@ app.mount('/static', StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 
+@app.get("/403", status_code=403)
+async def forbidden_page(request: Request):
+    return templates.TemplateResponse('forbidden.html', {'request': request})
+
+
 @app.get("/")
 async def root(request: Request):
     return templates.TemplateResponse('index.html', {'request': request})
+
+
+@app.post('/login')
+async def login_check(request: Request, login: str, password: str):
+    user: UserModel = get_user_by_name(app.mydb, login)
+    hash_passwd = hashlib.md5(password)
+    if not user.password == hash_passwd:
+        return RedirectResponse(url="/403")
+    else:
+        return RedirectResponse(url="/anime")
+    
+
+@app.get('/login')
+async def login_page(request: Request):
+    return templates.TemplateResponse('login.html', {'request': request})
 
 
 @app.get("/anime")

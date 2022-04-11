@@ -23,3 +23,9 @@ class EpisodeModel(BaseModel):
     serie_id: int
     episode_num: int
     status: Union[AiringStatus, str]
+
+
+class UserModel(BaseModel):
+    login: str
+    password: str
+    email: str
