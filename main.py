@@ -53,7 +53,7 @@ async def root(request: Request):
 async def login_check(request: Request, login: str, password: str):
     user: UserModel = get_user_by_name(app.mydb, login)
     hash_passwd = hashlib.md5(password.encode())
-    if not user.password == hash_passwd:
+    if not user.password == hash_passwd.hexdigest():
         return RedirectResponse(url="/403")
     else:
         return RedirectResponse(url="/anime")
