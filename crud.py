@@ -14,5 +14,5 @@ def get_episodes(con: Connection, title: Optional[str]) -> list[tuple]:
 
 def get_user_by_name(con: Connection, name: str):
     with con.cursor() as cur:
-        cur.execute("SELECT * FROM test.users WHERE name = %s", (name,))
+        cur.execute("SELECT * FROM test.users WHERE login = %s", (name,))
         return from_tuple(UserModel, cur.fetchone())
