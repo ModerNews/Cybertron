@@ -52,7 +52,7 @@ async def root(request: Request):
 @app.get('/authenticate')
 async def login_check(request: Request, login: str, password: str):
     user: UserModel = get_user_by_name(app.mydb, login)
-    hash_passwd = hashlib.md5(password)
+    hash_passwd = hashlib.md5(password.encode())
     if not user.password == hash_passwd:
         return RedirectResponse(url="/403")
     else:
