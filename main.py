@@ -49,7 +49,7 @@ async def root(request: Request):
     return templates.TemplateResponse('index.html', {'request': request})
 
 
-@app.post('/login')
+@app.get('/authenticate')
 async def login_check(request: Request, login: str, password: str):
     user: UserModel = get_user_by_name(app.mydb, login)
     hash_passwd = hashlib.md5(password)
