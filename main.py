@@ -5,7 +5,7 @@ from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 app.mount('/static', StaticFiles(directory="static"), name="static")
-tempalates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(directory="templates")
 
 
 @app.get("/")
@@ -15,7 +15,8 @@ async def root():
 
 @app.get("/file", response_class=HTMLResponse)
 async def say_hello():
-    tempalates.TemplateResponse('test_template.html', {'request': Request})
+    # print(templates.)
+    templates.TemplateResponse('file_upload.html', {'request': Request})
 
 
 @app.post("/uploads")
